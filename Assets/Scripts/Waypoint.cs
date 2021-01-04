@@ -14,7 +14,6 @@ public class Waypoint : MonoBehaviour
     public bool isPlaceable = true;
     public bool hasTower = false;
 
-    [SerializeField] Tower tower;
 
     // Start is called before the first frame update
     void Start()
@@ -47,9 +46,7 @@ public class Waypoint : MonoBehaviour
         //If your mouse hovers over the GameObject with the script attached, output this message
         if (Input.GetMouseButtonDown(0) && isPlaceable && !hasTower)
         {
-            Debug.Log("Mouse clicked " + gameObject.name);
-            var addCoords = new Vector3(0, 5, 0);
-            Instantiate(tower, transform.position + addCoords, Quaternion.identity);
+            FindObjectOfType<TowerFactory>().AddTower(this);
             hasTower = true;
         }
         
