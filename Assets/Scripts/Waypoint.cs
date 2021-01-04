@@ -11,6 +11,11 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false; 
     public Waypoint exploredFrom;
 
+    public bool isPlaceable = true;
+    public bool hasTower = false;
+
+    [SerializeField] Tower tower;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +40,19 @@ public class Waypoint : MonoBehaviour
     {
         MeshRenderer topMeshRenderer = transform.Find("Top").GetComponent<MeshRenderer>();
         topMeshRenderer.material.color = color;
+    }
+
+    void OnMouseOver()
+    {
+        //If your mouse hovers over the GameObject with the script attached, output this message
+        if (Input.GetMouseButtonDown(0) && isPlaceable && !hasTower)
+        {
+            Debug.Log("Mouse clicked " + gameObject.name);
+            var addCoords = new Vector3(0, 5, 0);
+            Instantiate(tower, transform.position + addCoords, Quaternion.identity);
+            hasTower = true;
+        }
+        
     }
 
     // Update is called once per frame

@@ -6,13 +6,16 @@ public class Tower : MonoBehaviour
 {
 
     [SerializeField] Transform objectToPan;
-    [SerializeField] Transform targetEnemy;
     [SerializeField] float attackRange = 30f; 
     [SerializeField] ParticleSystem projectileParticle;
+
+
+    Transform targetEnemy;
 
     // Update is called once per frame
     void Update()
     {
+        SetTargetEnemy();
         if (targetEnemy)
         {
             AttackEnemy();
@@ -21,6 +24,39 @@ public class Tower : MonoBehaviour
         {
             toggleFiring(false);
         }   
+    }
+
+    void SetTargetEnemy()
+    {
+        var sceneEnemies = FindObjectsOfType<EnemyDamage>();
+        if (sceneEnemies.Length == 0)
+        {
+            return;
+        }
+        else 
+        {
+            Transform closestEnemy = sceneEnemies[0].transform;
+
+            foreach (var candidate in sceneEnemies)
+            {
+                closestEnemy = GetClosestEnemy(candidate.transform, closestEnemy);
+            } 
+            targetEnemy = closestEnemy;
+        }
+    }
+
+    Transform GetClosestEnemy(Transform a, Transform b)
+    {
+        var aDist = Vector3.Distance(transform.position, a.position);
+        var bDist = Vector3.Distance(transform.position, b.position);
+        if (aDist < bDist)
+        {
+            return a;
+        }
+        else 
+        {
+            return b;
+        }
     }
 
     void AttackEnemy()

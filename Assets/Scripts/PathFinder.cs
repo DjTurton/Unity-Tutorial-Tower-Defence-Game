@@ -12,7 +12,7 @@ public class PathFinder : MonoBehaviour
     bool isRunning = true; // used to check if while loop running 
     Waypoint searchCenter;
 
-    List<Waypoint> path = new List<Waypoint>();
+    [SerializeField] List<Waypoint> path = new List<Waypoint>();
 
     // a list of vectors specifying four directions around the block on the grid
     // note that up == (0,1), down == (0, -1) etc 
@@ -118,13 +118,16 @@ public class PathFinder : MonoBehaviour
     void FormPath()
     {
         path.Add(endWaypoint);
+        endWaypoint.isPlaceable = false;
         Waypoint previous = endWaypoint.exploredFrom;
         while (previous != startWaypoint)
         {
             path.Add(previous);
+            previous.isPlaceable = false;
             previous = previous.exploredFrom;
         }
         path.Add(startWaypoint);
+        startWaypoint.isPlaceable = false;
         path.Reverse();
 
     }
