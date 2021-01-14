@@ -80,6 +80,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6633031cd42e63498fc848e9783519d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementPeriod: 0.5
+  deathParticles: {fileID: 198537984209914932, guid: 1a51bfda454239a41afb7dee687c6ac0,
+    type: 3}
 --- !u!65 &8429237585530540509
 BoxCollider:
   m_ObjectHideFlags: 0
